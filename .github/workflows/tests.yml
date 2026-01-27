@@ -28,4 +28,4 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run pytest --allow-no-tests
+          uv run pytest || [ $? -eq 5 ]
