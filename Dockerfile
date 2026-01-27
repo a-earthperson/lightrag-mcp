@@ -32,11 +32,13 @@ FROM python:3.11-slim AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     VIRTUAL_ENV=/opt/venv \
-    PATH="/opt/venv/bin:$PATH"
+    PATH="/opt/venv/bin:$PATH" \
+    PYTHONPATH=/app/src
 
 RUN addgroup --system app && adduser --system --ingroup app app
 
 COPY --from=builder /opt/venv /opt/venv
+COPY --from=builder /app/src /app/src
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint
 
 RUN chmod +x /usr/local/bin/entrypoint
@@ -47,13 +49,12 @@ WORKDIR /app
 # Runtime-configurable LightRAG + MCP parameters (override via env or docker run -e)
 ENV LIGHTRAG_HOST=lightrag \
     LIGHTRAG_PORT=9621 \
-    LIGHTRAG_API_KEY= \
     MCP_TRANSPORT=streamable-http \
-    MCP_HOST=0.0.0.0 \
-    MCP_PORT=8000 \
-    MCP_STREAMABLE_HTTP_PATH=/mcp \
-    MCP_STATELESS_HTTP=false \
-    MCP_JSON_RESPONSE=false
+    MCP_HTTP_HOST=0.0.0.0 \
+    MCP_HTTP_PORT=8000 \
+    MCP_HTTP_PATH=/ \
+    MCP_HTTP_STATELESS=false \
+    MCP_HTTP_JSON_RESPONSE=false
 
 EXPOSE 8000
 

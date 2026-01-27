@@ -53,11 +53,11 @@ LightRAG API connection:
 MCP transport:
 
 - `--mcp-transport`: MCP transport (`stdio` or `streamable-http`, default: stdio)
-- `--mcp-host`: MCP HTTP host (default: 127.0.0.1)
-- `--mcp-port`: MCP HTTP port (default: 8000)
-- `--mcp-streamable-http-path`: Streamable HTTP endpoint path (default: /mcp)
-- `--mcp-stateless-http`: Enable stateless Streamable HTTP mode (new session per request)
-- `--mcp-json-response`: Return JSON responses instead of SSE for Streamable HTTP
+- `--mcp-http-host`: MCP HTTP host (default: 127.0.0.1)
+- `--mcp-http-port`: MCP HTTP port (default: 8000)
+- `--mcp-http-path`: MCP HTTP base/mount path (default: /)
+- `--mcp-http-stateless`: Enable stateless HTTP mode (new session per request)
+- `--mcp-http-json-response`: Return JSON responses instead of SSE for HTTP
 
 ### Integration with LightRAG API
 
@@ -132,15 +132,23 @@ Use this when you need remote access or want to host the MCP server behind HTTP 
 ```bash
 uv run src/lightrag_mcp/main.py \
   --mcp-transport streamable-http \
-  --mcp-host 0.0.0.0 \
-  --mcp-port 8000 \
-  --mcp-streamable-http-path /mcp \
+  --mcp-http-host 0.0.0.0 \
+  --mcp-http-port 8000 \
+  --mcp-http-path /mcp \
   --host localhost \
   --port 9621 \
   --api-key your_api_key
 ```
 
 MCP clients should connect to: `http://localhost:8000/mcp`
+
+### Docker runtime configuration
+
+Provide secrets like `LIGHTRAG_API_KEY` at runtime (not in the image):
+
+```bash
+docker run --rm -it --env-file .env test
+```
 
 ## Available MCP Tools
 
