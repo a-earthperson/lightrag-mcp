@@ -36,6 +36,20 @@ uv pip install -e .
 - Python 3.11+
 - Running LightRAG API server
 
+## Docker and Docker Compose
+
+This repo ships a `Dockerfile` for the MCP server and a `docker-compose.yml` that runs both LightRAG and the MCP server together.
+
+### Quick start (Docker Compose)
+
+```bash
+docker compose up -d --build
+docker compose ps
+```
+
+MCP endpoint: `http://localhost:8000/`  
+LightRAG API: `http://localhost:9621/`
+
 ## Usage
 
 LightRAG MCP server supports two MCP transport modes:
@@ -147,7 +161,8 @@ MCP clients should connect to: `http://localhost:8000/mcp`
 Provide secrets like `LIGHTRAG_API_KEY` at runtime (not in the image):
 
 ```bash
-docker run --rm -it --env-file .env test
+docker build -t lightrag-mcp:local .
+docker run --rm -it --env-file docker/mcp-example.env lightrag-mcp:local
 ```
 
 ## Available MCP Tools
