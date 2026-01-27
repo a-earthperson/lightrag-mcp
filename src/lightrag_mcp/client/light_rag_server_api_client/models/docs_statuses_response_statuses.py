@@ -15,7 +15,9 @@ T = TypeVar("T", bound="DocsStatusesResponseStatuses")
 class DocsStatusesResponseStatuses:
     """ """
 
-    additional_properties: dict[str, list["DocStatusResponse"]] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, list["DocStatusResponse"]] = _attrs_field(
+        init=False, factory=dict
+    )
 
     def to_dict(self) -> dict[str, Any]:
         field_dict: dict[str, Any] = {}
@@ -39,7 +41,9 @@ class DocsStatusesResponseStatuses:
             additional_property = []
             _additional_property = prop_dict
             for additional_property_item_data in _additional_property:
-                additional_property_item = DocStatusResponse.from_dict(additional_property_item_data)
+                additional_property_item = DocStatusResponse.from_dict(
+                    additional_property_item_data
+                )
 
                 additional_property.append(additional_property_item)
 

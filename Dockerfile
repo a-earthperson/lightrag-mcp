@@ -53,13 +53,13 @@ ENV LIGHTRAG_HOST=lightrag \
     MCP_HTTP_HOST=0.0.0.0 \
     MCP_HTTP_PORT=8000 \
     MCP_HTTP_PATH=/ \
-    MCP_HTTP_STATELESS=false \
-    MCP_HTTP_JSON_RESPONSE=false
+    MCP_HTTP_STATELESS=true \
+    MCP_HTTP_JSON_RESPONSE=true
 
 EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD python -c "import os, socket, sys; transport=os.getenv('MCP_TRANSPORT','streamable-http'); if transport == 'stdio': sys.exit(0); port=int(os.getenv('MCP_PORT','8000')); s=socket.socket(); s.settimeout(2); s.connect(('127.0.0.1', port)); s.close()"
+  CMD python -c "import os, socket, sys; transport=os.getenv('MCP_TRANSPORT','streamable-http'); transport == 'stdio' and sys.exit(0); port=int(os.getenv('MCP_HTTP_PORT','8000')); s=socket.socket(); s.settimeout(2); s.connect(('127.0.0.1', port)); s.close()"
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 CMD []

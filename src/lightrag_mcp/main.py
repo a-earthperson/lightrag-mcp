@@ -29,14 +29,14 @@ def main():
             "LightRAG API server is expected to be already running and available at: "
             f"{config.LIGHTRAG.base_url}"
         )
-        
+
         if config.LIGHTRAG.api_key:
             logger.info("API key is configured")
         else:
             logger.warning("No API key provided")
 
         mcp.run(transport=config.TRANSPORT, mount_path=config.MCP.mount_path)
-        
+
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:

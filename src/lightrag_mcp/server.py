@@ -98,9 +98,14 @@ async def execute_lightrag_operation(
         Dict[str, Any]: Formatted response
     """
     try:
-        if not ctx or not ctx.request_context or not ctx.request_context.lifespan_context:
+        if (
+            not ctx
+            or not ctx.request_context
+            or not ctx.request_context.lifespan_context
+        ):
             return format_response(
-                f"Error: Request context is not available for {operation_name}", is_error=True
+                f"Error: Request context is not available for {operation_name}",
+                is_error=True,
             )
 
         app_ctx = cast(AppContext, ctx.request_context.lifespan_context)
@@ -118,7 +123,10 @@ async def execute_lightrag_operation(
 # === MCP Tools ===
 
 
-@mcp.tool(name="query_document", description="Execute a query to documents through LightRAG API")
+@mcp.tool(
+    name="query_document",
+    description="Execute a query to documents through LightRAG API",
+)
 async def query_document(
     ctx: Context,
     query: str = Field(description="Query text"),
@@ -228,11 +236,15 @@ async def insert_file(
     )
 
 
-@mcp.tool(name="insert_batch", description="Add batch of documents from directory to LightRAG")
+@mcp.tool(
+    name="insert_batch", description="Add batch of documents from directory to LightRAG"
+)
 async def insert_batch(
     ctx: Context,
     directory_path: str = Field(description="Path to directory with files to add"),
-    recursive: bool = Field(description="Recursive addition. Defaults to False", default=False),
+    recursive: bool = Field(
+        description="Recursive addition. Defaults to False", default=False
+    ),
     depth: int = Field(description="Recursion depth. Defaults to 1", default=1),
     include_only: list[str] = Field(
         description="""
@@ -303,7 +315,10 @@ async def get_documents(ctx: Context) -> Dict[str, Any]:
     )
 
 
-@mcp.tool(name="get_pipeline_status", description="Get status of document processing in pipeline")
+@mcp.tool(
+    name="get_pipeline_status",
+    description="Get status of document processing in pipeline",
+)
 async def get_pipeline_status(ctx: Context) -> Dict[str, Any]:
     async def _operation(client: LightRAGClient) -> Any:
         return await client.get_pipeline_status()
@@ -372,7 +387,9 @@ async def merge_entities(
     )
 
 
-@mcp.tool(name="create_entities", description="Create multiple entities in knowledge graph")
+@mcp.tool(
+    name="create_entities", description="Create multiple entities in knowledge graph"
+)
 async def create_entities(
     ctx: Context,
     entities: List[Dict[str, Any]] = Field(
@@ -415,7 +432,9 @@ async def create_entities(
         Dictionary with creation results for each entity
     """
 
-    async def _create_entity(client: LightRAGClient, entity_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def _create_entity(
+        client: LightRAGClient, entity_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
         entity_name = entity_data.get("entity_name")
         entity_type = entity_data.get("entity_type")
         description = entity_data.get("description")
@@ -435,7 +454,11 @@ async def create_entities(
                 description=str(description),
                 source_id=str(source_id),
             )
-            return {"entity_name": str(entity_name), "status": "success", "result": result}
+            return {
+                "entity_name": str(entity_name),
+                "status": "success",
+                "result": result,
+            }
         except Exception as e:
             return {"entity_name": str(entity_name), "status": "error", "error": str(e)}
 
@@ -464,7 +487,8 @@ async def create_entities(
 
 
 @mcp.tool(
-    name="delete_by_entities", description="Delete multiple entities from knowledge graph by name"
+    name="delete_by_entities",
+    description="Delete multiple entities from knowledge graph by name",
 )
 async def delete_by_entities(
     ctx: Context,
@@ -487,7 +511,9 @@ async def delete_by_entities(
         Dictionary with deletion results for each entity
     """
 
-    async def _delete_entity(client: LightRAGClient, entity_name: str) -> Dict[str, Any]:
+    async def _delete_entity(
+        client: LightRAGClient, entity_name: str
+    ) -> Dict[str, Any]:
         try:
             result = await client.delete_by_entity(entity_name=entity_name)
             return {"entity_name": entity_name, "status": "success", "result": result}
@@ -572,7 +598,10 @@ async def delete_by_doc_ids(
     )
 
 
-@mcp.tool(name="edit_entities", description="Edit multiple existing entities in knowledge graph")
+@mcp.tool(
+    name="edit_entities",
+    description="Edit multiple existing entities in knowledge graph",
+)
 async def edit_entities(
     ctx: Context,
     entities: List[Dict[str, Any]] = Field(
@@ -615,7 +644,9 @@ async def edit_entities(
         Dictionary with edit results for each entity
     """
 
-    async def _edit_entity(client: LightRAGClient, entity_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def _edit_entity(
+        client: LightRAGClient, entity_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
         entity_name = entity_data.get("entity_name")
         entity_type = entity_data.get("entity_type")
         description = entity_data.get("description")
@@ -635,7 +666,11 @@ async def edit_entities(
                 description=str(description),
                 source_id=str(source_id),
             )
-            return {"entity_name": str(entity_name), "status": "success", "result": result}
+            return {
+                "entity_name": str(entity_name),
+                "status": "success",
+                "result": result,
+            }
         except Exception as e:
             return {"entity_name": str(entity_name), "status": "error", "error": str(e)}
 
@@ -739,13 +774,22 @@ async def create_relations(
                 source_id=str(source_id) if source_id else None,
                 weight=float(weight) if weight is not None else None,
             )
-            return {"relation": f"{source} -> {target}", "status": "success", "result": result}
+            return {
+                "relation": f"{source} -> {target}",
+                "status": "success",
+                "result": result,
+            }
         except Exception as e:
-            return {"relation": f"{source} -> {target}", "status": "error", "error": str(e)}
+            return {
+                "relation": f"{source} -> {target}",
+                "status": "error",
+                "error": str(e),
+            }
 
     async def _operation(client: LightRAGClient) -> Any:
         relation_strs = [
-            f"{r.get('source', 'unknown')} -> {r.get('target', 'unknown')}" for r in relations
+            f"{r.get('source', 'unknown')} -> {r.get('target', 'unknown')}"
+            for r in relations
         ]
         relation_strs_sample = ", ".join(relation_strs[:5])
         if len(relation_strs) > 5:
@@ -850,13 +894,22 @@ async def edit_relations(
                 source_id=str(source_id) if source_id else None,
                 weight=float(weight) if weight is not None else None,
             )
-            return {"relation": f"{source} -> {target}", "status": "success", "result": result}
+            return {
+                "relation": f"{source} -> {target}",
+                "status": "success",
+                "result": result,
+            }
         except Exception as e:
-            return {"relation": f"{source} -> {target}", "status": "error", "error": str(e)}
+            return {
+                "relation": f"{source} -> {target}",
+                "status": "error",
+                "error": str(e),
+            }
 
     async def _operation(client: LightRAGClient) -> Any:
         relation_strs = [
-            f"{r.get('source', 'unknown')} -> {r.get('target', 'unknown')}" for r in relations
+            f"{r.get('source', 'unknown')} -> {r.get('target', 'unknown')}"
+            for r in relations
         ]
         relation_strs_sample = ", ".join(relation_strs[:5])
         if len(relation_strs) > 5:

@@ -6,6 +6,7 @@ import argparse
 from dataclasses import dataclass
 from typing import Literal
 
+
 @dataclass(frozen=True)
 class LightRAGSettings:
     """Settings for connecting to the LightRAG API server."""
@@ -72,7 +73,7 @@ def parse_args():
         "--mcp-transport",
         choices=["stdio", "sse", "streamable-http"],
         default="streamable-http",
-        help=f"MCP transport (default: streamable-http)",
+        help="MCP transport (default: streamable-http)",
     )
     parser.add_argument(
         "--mcp-http-host",
@@ -89,10 +90,7 @@ def parse_args():
         "--mcp-http-path",
         type=str,
         default="/",
-        help=(
-            "MCP HTTP base/mount path"
-            f"(default: {MCPSettings.mount_path})"
-        ),
+        help=(f"MCP HTTP base/mount path(default: {MCPSettings.mount_path})"),
     )
     parser.add_argument(
         "--mcp-http-stateless",
