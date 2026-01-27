@@ -1,6 +1,7 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/shemhamforash23-lightrag-mcp-badge.png)](https://mseep.ai/app/shemhamforash23-lightrag-mcp)
-
 # LightRAG MCP Server
+[![Lint](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/lint.yml/badge.svg)](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/lint.yml)
+[![Tests](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/tests.yml)
+[![Coverage](https://codecov.io/gh/a-earthperson/lightrag-mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/a-earthperson/lightrag-mcp)
 
 MCP server for integrating LightRAG with AI tools. Provides a unified interface for interacting with LightRAG API through the MCP protocol.
 
