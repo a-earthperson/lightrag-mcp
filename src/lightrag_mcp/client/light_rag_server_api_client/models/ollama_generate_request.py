@@ -7,7 +7,9 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.ollama_generate_request_options_type_0 import OllamaGenerateRequestOptionsType0
+    from ..models.ollama_generate_request_options_type_0 import (
+        OllamaGenerateRequestOptionsType0,
+    )
 
 
 T = TypeVar("T", bound="OllamaGenerateRequest")
@@ -32,7 +34,9 @@ class OllamaGenerateRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.ollama_generate_request_options_type_0 import OllamaGenerateRequestOptionsType0
+        from ..models.ollama_generate_request_options_type_0 import (
+            OllamaGenerateRequestOptionsType0,
+        )
 
         model = self.model
 
@@ -73,7 +77,9 @@ class OllamaGenerateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.ollama_generate_request_options_type_0 import OllamaGenerateRequestOptionsType0
+        from ..models.ollama_generate_request_options_type_0 import (
+            OllamaGenerateRequestOptionsType0,
+        )
 
         d = dict(src_dict)
         model = d.pop("model")
@@ -91,7 +97,9 @@ class OllamaGenerateRequest:
 
         stream = d.pop("stream", UNSET)
 
-        def _parse_options(data: object) -> Union["OllamaGenerateRequestOptionsType0", None, Unset]:
+        def _parse_options(
+            data: object,
+        ) -> Union["OllamaGenerateRequestOptionsType0", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):

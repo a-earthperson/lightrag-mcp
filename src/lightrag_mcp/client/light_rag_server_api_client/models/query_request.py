@@ -8,7 +8,9 @@ from ..models.query_request_mode import QueryRequestMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.query_request_conversation_history_type_0_item import QueryRequestConversationHistoryType0Item
+    from ..models.query_request_conversation_history_type_0_item import (
+        QueryRequestConversationHistoryType0Item,
+    )
 
 
 T = TypeVar("T", bound="QueryRequest")
@@ -53,7 +55,9 @@ class QueryRequest:
     max_token_for_local_context: Union[None, Unset, int] = UNSET
     hl_keywords: Union[None, Unset, list[str]] = UNSET
     ll_keywords: Union[None, Unset, list[str]] = UNSET
-    conversation_history: Union[None, Unset, list["QueryRequestConversationHistoryType0Item"]] = UNSET
+    conversation_history: Union[
+        None, Unset, list["QueryRequestConversationHistoryType0Item"]
+    ] = UNSET
     history_turns: Union[None, Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -130,7 +134,9 @@ class QueryRequest:
         elif isinstance(self.conversation_history, list):
             conversation_history = []
             for conversation_history_type_0_item_data in self.conversation_history:
-                conversation_history_type_0_item = conversation_history_type_0_item_data.to_dict()
+                conversation_history_type_0_item = (
+                    conversation_history_type_0_item_data.to_dict()
+                )
                 conversation_history.append(conversation_history_type_0_item)
 
         else:
@@ -178,7 +184,9 @@ class QueryRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.query_request_conversation_history_type_0_item import QueryRequestConversationHistoryType0Item
+        from ..models.query_request_conversation_history_type_0_item import (
+            QueryRequestConversationHistoryType0Item,
+        )
 
         d = dict(src_dict)
         query = d.pop("query")
@@ -233,16 +241,22 @@ class QueryRequest:
                 return data
             return cast(Union[None, Unset, int], data)
 
-        max_token_for_text_unit = _parse_max_token_for_text_unit(d.pop("max_token_for_text_unit", UNSET))
+        max_token_for_text_unit = _parse_max_token_for_text_unit(
+            d.pop("max_token_for_text_unit", UNSET)
+        )
 
-        def _parse_max_token_for_global_context(data: object) -> Union[None, Unset, int]:
+        def _parse_max_token_for_global_context(
+            data: object,
+        ) -> Union[None, Unset, int]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
             return cast(Union[None, Unset, int], data)
 
-        max_token_for_global_context = _parse_max_token_for_global_context(d.pop("max_token_for_global_context", UNSET))
+        max_token_for_global_context = _parse_max_token_for_global_context(
+            d.pop("max_token_for_global_context", UNSET)
+        )
 
         def _parse_max_token_for_local_context(data: object) -> Union[None, Unset, int]:
             if data is None:
@@ -251,7 +265,9 @@ class QueryRequest:
                 return data
             return cast(Union[None, Unset, int], data)
 
-        max_token_for_local_context = _parse_max_token_for_local_context(d.pop("max_token_for_local_context", UNSET))
+        max_token_for_local_context = _parse_max_token_for_local_context(
+            d.pop("max_token_for_local_context", UNSET)
+        )
 
         def _parse_hl_keywords(data: object) -> Union[None, Unset, list[str]]:
             if data is None:
@@ -299,9 +315,13 @@ class QueryRequest:
                     raise TypeError()
                 conversation_history_type_0 = []
                 _conversation_history_type_0 = data
-                for conversation_history_type_0_item_data in _conversation_history_type_0:
-                    conversation_history_type_0_item = QueryRequestConversationHistoryType0Item.from_dict(
-                        conversation_history_type_0_item_data
+                for (
+                    conversation_history_type_0_item_data
+                ) in _conversation_history_type_0:
+                    conversation_history_type_0_item = (
+                        QueryRequestConversationHistoryType0Item.from_dict(
+                            conversation_history_type_0_item_data
+                        )
                     )
 
                     conversation_history_type_0.append(conversation_history_type_0_item)
@@ -309,9 +329,14 @@ class QueryRequest:
                 return conversation_history_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union[None, Unset, list["QueryRequestConversationHistoryType0Item"]], data)
+            return cast(
+                Union[None, Unset, list["QueryRequestConversationHistoryType0Item"]],
+                data,
+            )
 
-        conversation_history = _parse_conversation_history(d.pop("conversation_history", UNSET))
+        conversation_history = _parse_conversation_history(
+            d.pop("conversation_history", UNSET)
+        )
 
         def _parse_history_turns(data: object) -> Union[None, Unset, int]:
             if data is None:

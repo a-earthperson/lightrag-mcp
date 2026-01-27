@@ -46,8 +46,12 @@ from lightrag_mcp.client.light_rag_server_api_client.models import (
     relation_request,
     relation_response,
 )
-from lightrag_mcp.client.light_rag_server_api_client.models.entity_request import EntityRequest
-from lightrag_mcp.client.light_rag_server_api_client.models.entity_response import EntityResponse
+from lightrag_mcp.client.light_rag_server_api_client.models.entity_request import (
+    EntityRequest,
+)
+from lightrag_mcp.client.light_rag_server_api_client.models.entity_response import (
+    EntityResponse,
+)
 from lightrag_mcp.client.light_rag_server_api_client.models.merge_entities_request import (
     MergeEntitiesRequest,
 )
@@ -86,7 +90,9 @@ class LightRAGClient:
         """
         self.base_url = base_url
         self.api_key = api_key
-        self.client = AuthenticatedClient(base_url=base_url, token=api_key, verify_ssl=False)
+        self.client = AuthenticatedClient(
+            base_url=base_url, token=api_key, verify_ssl=False
+        )
         logger.info(f"Initialized LightRAG API client: {base_url}")
 
     async def _handle_exception(self, e: Exception, operation_name: str) -> None:
@@ -101,7 +107,9 @@ class LightRAGClient:
             Exception: Re-raises the exception
         """
         if isinstance(e, UnexpectedStatus):
-            logger.error(f"HTTP error during {operation_name}: {e.status_code} - {e.content!r}")
+            logger.error(
+                f"HTTP error during {operation_name}: {e.status_code} - {e.content!r}"
+            )
         else:
             logger.error(f"Error during {operation_name}: {str(e)}")
 
@@ -223,7 +231,9 @@ class LightRAGClient:
                 body=request,
             )
 
-    async def upload_document(self, file_path: str) -> Union[Any, HTTPValidationError, None]:
+    async def upload_document(
+        self, file_path: str
+    ) -> Union[Any, HTTPValidationError, None]:
         """
         Upload document from file to LightRAG's /input directory and start indexing.
 
@@ -260,7 +270,9 @@ class LightRAGClient:
             await self._handle_exception(e, f"загрузке файла {file_path}")
             raise
 
-    async def insert_file(self, file_path: str) -> Union[InsertResponse, HTTPValidationError, None]:
+    async def insert_file(
+        self, file_path: str
+    ) -> Union[InsertResponse, HTTPValidationError, None]:
         """
         Add document from a file_path directly to LightRAG storage, without uploading to /input directory.
 
@@ -325,7 +337,9 @@ class LightRAGClient:
         )
 
         if include_only and ignore_files:
-            error_message = "Cannot specify both include_only and ignore_files parameters"
+            error_message = (
+                "Cannot specify both include_only and ignore_files parameters"
+            )
             logger.error(error_message)
             raise ValueError(error_message)
 
@@ -334,9 +348,13 @@ class LightRAGClient:
             logger.error(f"Directory not found: {directory_path}")
             raise FileNotFoundError(f"Directory not found: {directory_path}")
 
-        include_patterns = [re.compile(pattern) for pattern in include_only] if include_only else []
+        include_patterns = (
+            [re.compile(pattern) for pattern in include_only] if include_only else []
+        )
         ignore_dir_patterns = (
-            [re.compile(pattern) for pattern in ignore_directories] if ignore_directories else []
+            [re.compile(pattern) for pattern in ignore_directories]
+            if ignore_directories
+            else []
         )
         ignore_file_patterns = (
             [re.compile(pattern) for pattern in ignore_files] if ignore_files else []
@@ -350,8 +368,12 @@ class LightRAGClient:
                     if item.is_dir() and recursive and current_depth < depth:
                         # Check if directory should be ignored
                         dir_name = item.name
-                        if any(pattern.search(dir_name) for pattern in ignore_dir_patterns):
-                            logger.debug(f"Ignoring directory: {item} (matched ignore pattern)")
+                        if any(
+                            pattern.search(dir_name) for pattern in ignore_dir_patterns
+                        ):
+                            logger.debug(
+                                f"Ignoring directory: {item} (matched ignore pattern)"
+                            )
                             continue
 
                         # Process subdirectory
@@ -361,9 +383,14 @@ class LightRAGClient:
 
                         # Apply include_only filter if specified
                         if include_patterns:
-                            if any(pattern.search(file_name) for pattern in include_patterns):
+                            if any(
+                                pattern.search(file_name)
+                                for pattern in include_patterns
+                            ):
                                 file_paths.append(item)
-                                logger.debug(f"Including file: {item} (matched include pattern)")
+                                logger.debug(
+                                    f"Including file: {item} (matched include pattern)"
+                                )
                             else:
                                 logger.debug(
                                     f"Skipping file: {item} (did not match any include pattern)"
@@ -372,8 +399,13 @@ class LightRAGClient:
 
                         # Apply ignore_files filter if specified
                         if ignore_file_patterns:
-                            if any(pattern.search(file_name) for pattern in ignore_file_patterns):
-                                logger.debug(f"Ignoring file: {item} (matched ignore pattern)")
+                            if any(
+                                pattern.search(file_name)
+                                for pattern in ignore_file_patterns
+                            ):
+                                logger.debug(
+                                    f"Ignoring file: {item} (matched ignore pattern)"
+                                )
                                 continue
 
                         # If we got here, the file is not filtered out
@@ -384,7 +416,9 @@ class LightRAGClient:
 
         try:
             file_paths = collect_file_paths(dir_path)
-            logger.info(f"Found {len(file_paths)} files for processing after applying filters")
+            logger.info(
+                f"Found {len(file_paths)} files for processing after applying filters"
+            )
 
             success_count = 0
             failed_files = []
@@ -403,9 +437,7 @@ class LightRAGClient:
                 message = f"All {success_count} documents inserted successfully"
             elif success_count > 0:
                 status = "partial_success"
-                message = (
-                    f"Successfully inserted {success_count} out of {len(file_paths)} documents"
-                )
+                message = f"Successfully inserted {success_count} out of {len(file_paths)} documents"
                 if failed_files:
                     message += f". Failed files: {', '.join(failed_files)}"
             else:
@@ -465,7 +497,9 @@ class LightRAGClient:
             client=self.client,
         )
 
-    async def get_graph_labels(self) -> Union[Dict[str, List[str]], HTTPValidationError, None]:
+    async def get_graph_labels(
+        self,
+    ) -> Union[Dict[str, List[str]], HTTPValidationError, None]:
         """
         Get graph labels from knowledge graph.
 
@@ -683,12 +717,16 @@ class LightRAGClient:
         Returns:
             Union[Dict, HTTPValidationError]: Merge operation result.
         """
-        logger.debug(f"Merging entities: {', '.join(source_entities)} -> {target_entity}")
+        logger.debug(
+            f"Merging entities: {', '.join(source_entities)} -> {target_entity}"
+        )
 
         request = MergeEntitiesRequest(
             source_entities=source_entities,
             target_entity=target_entity,
-            merge_strategy=MergeEntitiesRequestMergeStrategyType0.from_dict(merge_strategy),
+            merge_strategy=MergeEntitiesRequestMergeStrategyType0.from_dict(
+                merge_strategy
+            ),
         )
 
         return await self._call_api(

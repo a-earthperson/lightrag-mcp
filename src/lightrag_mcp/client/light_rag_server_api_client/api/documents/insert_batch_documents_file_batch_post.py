@@ -5,7 +5,9 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.body_insert_batch_documents_file_batch_post import BodyInsertBatchDocumentsFileBatchPost
+from ...models.body_insert_batch_documents_file_batch_post import (
+    BodyInsertBatchDocumentsFileBatchPost,
+)
 from ...models.http_validation_error import HTTPValidationError
 from ...models.insert_response import InsertResponse
 from ...types import UNSET, Response, Unset

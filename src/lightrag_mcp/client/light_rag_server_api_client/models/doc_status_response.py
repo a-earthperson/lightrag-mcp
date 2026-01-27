@@ -8,7 +8,9 @@ from ..models.doc_status import DocStatus
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.doc_status_response_metadata_type_0 import DocStatusResponseMetadataType0
+    from ..models.doc_status_response_metadata_type_0 import (
+        DocStatusResponseMetadataType0,
+    )
 
 
 T = TypeVar("T", bound="DocStatusResponse")
@@ -43,7 +45,9 @@ class DocStatusResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.doc_status_response_metadata_type_0 import DocStatusResponseMetadataType0
+        from ..models.doc_status_response_metadata_type_0 import (
+            DocStatusResponseMetadataType0,
+        )
 
         id = self.id
 
@@ -103,7 +107,9 @@ class DocStatusResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.doc_status_response_metadata_type_0 import DocStatusResponseMetadataType0
+        from ..models.doc_status_response_metadata_type_0 import (
+            DocStatusResponseMetadataType0,
+        )
 
         d = dict(src_dict)
         id = d.pop("id")
@@ -138,7 +144,9 @@ class DocStatusResponse:
 
         error = _parse_error(d.pop("error", UNSET))
 
-        def _parse_metadata(data: object) -> Union["DocStatusResponseMetadataType0", None, Unset]:
+        def _parse_metadata(
+            data: object,
+        ) -> Union["DocStatusResponseMetadataType0", None, Unset]:
             if data is None:
                 return data
             if isinstance(data, Unset):

@@ -38,7 +38,9 @@ class DocsStatusesResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.docs_statuses_response_statuses import DocsStatusesResponseStatuses
+        from ..models.docs_statuses_response_statuses import (
+            DocsStatusesResponseStatuses,
+        )
 
         d = dict(src_dict)
         _statuses = d.pop("statuses", UNSET)

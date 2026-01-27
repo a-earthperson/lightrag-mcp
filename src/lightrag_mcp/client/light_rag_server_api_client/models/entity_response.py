@@ -26,7 +26,9 @@ class EntityResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.entity_response_graph_data_type_0 import EntityResponseGraphDataType0
+        from ..models.entity_response_graph_data_type_0 import (
+            EntityResponseGraphDataType0,
+        )
 
         entity_name = self.entity_name
 
@@ -53,7 +55,9 @@ class EntityResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.entity_response_graph_data_type_0 import EntityResponseGraphDataType0
+        from ..models.entity_response_graph_data_type_0 import (
+            EntityResponseGraphDataType0,
+        )
 
         d = dict(src_dict)
         entity_name = d.pop("entity_name")
@@ -65,7 +69,9 @@ class EntityResponse:
 
         source_id = _parse_source_id(d.pop("source_id"))
 
-        def _parse_graph_data(data: object) -> Union["EntityResponseGraphDataType0", None]:
+        def _parse_graph_data(
+            data: object,
+        ) -> Union["EntityResponseGraphDataType0", None]:
             if data is None:
                 return data
             try:

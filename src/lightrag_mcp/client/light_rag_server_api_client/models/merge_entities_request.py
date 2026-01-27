@@ -81,12 +81,16 @@ class MergeEntitiesRequest:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                merge_strategy_type_0 = MergeEntitiesRequestMergeStrategyType0.from_dict(data)
+                merge_strategy_type_0 = (
+                    MergeEntitiesRequestMergeStrategyType0.from_dict(data)
+                )
 
                 return merge_strategy_type_0
             except:  # noqa: E722
                 pass
-            return cast(Union["MergeEntitiesRequestMergeStrategyType0", None, Unset], data)
+            return cast(
+                Union["MergeEntitiesRequestMergeStrategyType0", None, Unset], data
+            )
 
         merge_strategy = _parse_merge_strategy(d.pop("merge_strategy", UNSET))
 

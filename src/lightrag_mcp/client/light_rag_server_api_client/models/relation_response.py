@@ -5,7 +5,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.relation_response_graph_data_type_0 import RelationResponseGraphDataType0
+    from ..models.relation_response_graph_data_type_0 import (
+        RelationResponseGraphDataType0,
+    )
 
 
 T = TypeVar("T", bound="RelationResponse")
@@ -28,7 +30,9 @@ class RelationResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.relation_response_graph_data_type_0 import RelationResponseGraphDataType0
+        from ..models.relation_response_graph_data_type_0 import (
+            RelationResponseGraphDataType0,
+        )
 
         src_entity = self.src_entity
 
@@ -58,7 +62,9 @@ class RelationResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.relation_response_graph_data_type_0 import RelationResponseGraphDataType0
+        from ..models.relation_response_graph_data_type_0 import (
+            RelationResponseGraphDataType0,
+        )
 
         d = dict(src_dict)
         src_entity = d.pop("src_entity")
@@ -72,7 +78,9 @@ class RelationResponse:
 
         source_id = _parse_source_id(d.pop("source_id"))
 
-        def _parse_graph_data(data: object) -> Union["RelationResponseGraphDataType0", None]:
+        def _parse_graph_data(
+            data: object,
+        ) -> Union["RelationResponseGraphDataType0", None]:
             if data is None:
                 return data
             try:
