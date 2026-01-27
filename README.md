@@ -1,6 +1,7 @@
 # LightRAG MCP Server
 [![Lint](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/lint.yml/badge.svg)](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/lint.yml)
 [![Tests](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/tests.yml)
+[![Docker](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/docker.yml/badge.svg)](https://github.com/a-earthperson/lightrag-mcp/actions/workflows/docker.yml)
 [![Coverage](https://codecov.io/gh/a-earthperson/lightrag-mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/a-earthperson/lightrag-mcp)
 
 MCP server for integrating LightRAG with AI tools. Provides a unified interface for interacting with LightRAG API through the MCP protocol.
