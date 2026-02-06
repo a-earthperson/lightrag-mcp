@@ -9,7 +9,7 @@ description = "MCP Server for LightRAG"
 requires-python = ">=3.11"
 readme = "README.md"
 authors = [
-    {name = "shemhamforash", email = "killsterak16@gmail.com"},
+    {name = "Arjun Earthperson", email = "mail@earthperson.org"},
 ]
 dependencies = [
     "mcp>=1.26.0",
