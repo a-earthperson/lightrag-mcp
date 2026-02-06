@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lightrag_mcp"
-version = "0.1.0"
+dynamic = ["version"]
 description = "MCP Server for LightRAG"
 requires-python = ">=3.11"
 readme = "README.md"
@@ -30,5 +30,14 @@ dev = [
 [project.scripts]
 lightrag-mcp = "lightrag_mcp.main:main"
 
+[tool.hatch.version]
+path = "src/lightrag_mcp/__init__.py"
+
+[tool.hatch.build]
+sources = ["src"]
+
 [tool.hatch.build.targets.wheel]
-packages = ["src/lightrag_mcp"]
+packages = ["lightrag_mcp"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/lightrag_mcp/**"]
